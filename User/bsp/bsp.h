@@ -53,7 +53,7 @@
 #include "bsp_timer.h"
 #include "bsp_key.h"
 
-#include "bsp_uart_fifo.h"
+//#include "bsp_uart_fifo.h"
 #include "bsp_cpu_flash.h"
 
 /* 提供给其他C文件调用的函数 */

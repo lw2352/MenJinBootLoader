@@ -421,11 +421,6 @@
               <FilePath>..\..\User\bsp\src\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\bsp\src\bsp_timer.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\User\bsp\bsp.h</FilePath>
@@ -451,14 +446,14 @@
               <FilePath>..\..\User\bsp\src\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart_fifo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\bsp\src\bsp_uart_fifo.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_cpu_flash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_cpu_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_timer.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -949,11 +944,6 @@
               <FilePath>..\..\User\bsp\src\bsp_led.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\bsp\src\bsp_timer.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\User\bsp\bsp.h</FilePath>
@@ -979,14 +969,14 @@
               <FilePath>..\..\User\bsp\src\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_uart_fifo.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\bsp\src\bsp_uart_fifo.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_cpu_flash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\bsp\src\bsp_cpu_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\src\bsp_timer.c</FilePath>
             </File>
           </Files>
         </Group>
