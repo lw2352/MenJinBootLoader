@@ -44,6 +44,11 @@ void bsp_Init(void)
 	
 	bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
 
+    bsp_InitSPIBus();	/* 配置SPI总线 */		
+	bsp_InitSFlash();	/* 初始化SPI 串行Flash */
+    
+    bsp_InitI2C();		/* 配置I2C总线 */
+    paramInit();//读取参数
 }
 
 /*
@@ -57,7 +62,7 @@ void bsp_Init(void)
 */
 void bsp_RunPer10ms(void)
 {
-	bsp_KeyScan();		/* 每10ms扫描按键一次 */
+	//bsp_KeyScan();		/* 每10ms扫描按键一次 */
 }
 
 /*
