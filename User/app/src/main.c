@@ -18,7 +18,7 @@
 
 #define IAP_PAGE_SIZE 2048//为了能够兼容F103 所以提出了2K这个更新大小
 #define APP_START_ADDR (uint32_t)0x08004000//app程序从第16K开始
-#define DEFAULT_START_ADDR (uint32_t)0x08044000//默认程序从第16K+256K=开始
+#define DEFAULT_START_ADDR (uint32_t)0x08044000//默认程序从第16K+256K=开始，大小为240k=3C000
 /* 变量 */
 typedef  void (*pFunction)(void);
 pFunction Jump_To_Application;
@@ -61,7 +61,7 @@ int main(void)
                     resetParam();
                     sf_EraseChip();
                 }
-                bsp_LedOn(1);//指示复位成功
+                //bsp_LedOn(1);//指示复位成功
                 g_MainStatus = 1;	/* 转移到状态1 */
                 break;
             
@@ -87,7 +87,7 @@ int main(void)
             case 2:
                 //需要升级，复制spi数据到mcu内部flash
                 status_2();
-                bsp_LedOn(2);//指示数据复制成功
+                //bsp_LedOn(2);//指示数据复制成功
                 g_MainStatus = 3;
                 break;
             
@@ -107,12 +107,9 @@ static uint8_t status_0(void)
 {
     if(READ_RESET_KEY == 0)//high default,0表示低电平
     {
-        //加上亮灯提示
-        bsp_LedOn(3);
         bsp_DelayMS(5000);
         if(READ_RESET_KEY == 0)//按下5s
         {
-            bsp_LedOff(3);
             return 1;
         }
     }
@@ -141,10 +138,8 @@ static void status_2(void)
 
 //跳转
 static void status_3(uint32_t address)
-{
-    bsp_LedOn(3);//指示准备跳转
-    
-    JumpAddress = *(__IO uint32_t*) (address+4);
+{   
+    JumpAddress = *(__IO uint32_t*) (address+4);// 前4字节为中断向量表
     /* 用户应用地址 */
     Jump_To_Application = (pFunction) JumpAddress;
     

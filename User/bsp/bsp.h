@@ -138,6 +138,7 @@ enum OpenCfg_Enum
 #include "bsp_spi_bus.h"
 #include "bsp_spi_flash.h"
 #include "key.h"
+#include "bsp_dwt.h"
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);
 void bsp_Idle(void);

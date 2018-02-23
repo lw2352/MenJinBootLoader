@@ -36,10 +36,10 @@
 #define GPIO_PIN_LED2	GPIO_Pin_12//out2
 
 #define GPIO_PORT_LED3  GPIOB
-#define GPIO_PIN_LED3	GPIO_Pin_8//sysStatus
+#define GPIO_PIN_LED3	GPIO_Pin_5//sysStatus
 
 #define GPIO_PORT_LED4  GPIOC
-#define GPIO_PIN_LED4	GPIO_Pin_10
+#define GPIO_PIN_LED4	GPIO_Pin_0
 
 /*
 *********************************************************************************************************
@@ -64,7 +64,7 @@ void bsp_InitLed(void)
 	bsp_LedOff(1);
 	bsp_LedOff(2);
 	bsp_LedOff(3);
-	bsp_LedOff(4);
+	//bsp_LedOff(4);
 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	/* 推挽输出模式 */
@@ -80,6 +80,10 @@ void bsp_InitLed(void)
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_PIN_LED4;
 	GPIO_Init(GPIO_PORT_LED4, &GPIO_InitStructure);
+    
+    //test
+    //GPIO_SetBits(GPIOC, GPIO_Pin_0);//置高电平
+    //GPIO_ResetBits(GPIOC, GPIO_Pin_0);
 }
 
 /*

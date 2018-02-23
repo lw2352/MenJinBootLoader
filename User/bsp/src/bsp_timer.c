@@ -116,7 +116,7 @@ void bsp_InitTimer(void)
 	SysTick_Config(SystemCoreClock / 1000);
 	
 #if defined (USE_TIM2) || defined (USE_TIM3)  || defined (USE_TIM4)	|| defined (USE_TIM5)
-	bsp_InitHardTimer();
+	//bsp_InitHardTimer();
 #endif
 }
 

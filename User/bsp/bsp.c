@@ -39,10 +39,12 @@ void bsp_Init(void)
 	/* 优先级分组设置为4 */
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	
+    bsp_InitDWT();//用来做精确微秒延时
+    
 	bsp_InitLed();		/* 配置LED的GPIO端口 */
 	bsp_InitKey();		/* 初始化按键 */
 	
-	bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
+	//bsp_InitTimer();	/* 初始化系统滴答定时器 (此函数会开中断) */
 
     bsp_InitSPIBus();	/* 配置SPI总线 */		
 	bsp_InitSFlash();	/* 初始化SPI 串行Flash */

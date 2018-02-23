@@ -39,8 +39,9 @@
 ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-; 2015-08-02 armfly 增大堆栈空间32K
-Stack_Size      EQU     0x00008000
+; 2015-08-02 armfly 增大堆栈空间32K;2-23恢复为1K
+;Stack_Size      EQU     0x00008000
+Stack_Size      EQU     0x00000400
 
                 AREA    STACK, NOINIT, READWRITE, ALIGN=3
 Stack_Mem       SPACE   Stack_Size
