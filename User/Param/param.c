@@ -159,7 +159,7 @@ void resetParam(void)
     g_tParam.netCfg.server_port = 8085;
     
     g_tParam.systemCfg.openTime = 5;
-    g_tParam.systemCfg.waitTime = 10;
+    g_tParam.systemCfg.waitTime = 0;
     memset(g_tParam.systemCfg.multipleOpenCfg, 0, sizeof(g_tParam.systemCfg.multipleOpenCfg));
     
     g_tParam.relation.relationA.reader_switcher = 1;
