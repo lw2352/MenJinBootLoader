@@ -192,8 +192,7 @@ uint8_t bsp_WriteCpuFlash(uint32_t _ulFlashAddr, uint8_t *_ucpSrc, uint32_t _ulS
 
 	/* 按字节模式编程（为提高效率，可以按字编程，一次写入4字节） */
 	for (i = 0; i < _ulSize / 2; i++)
-	{
-		//FLASH_ProgramByte(_ulFlashAddr++, *_ucpSrc++);		
+	{	
 		usTemp = _ucpSrc[2 * i];
 		usTemp |= (_ucpSrc[2 * i + 1] << 8);
 		status = FLASH_ProgramHalfWord(_ulFlashAddr, usTemp);

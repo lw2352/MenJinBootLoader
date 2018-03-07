@@ -68,6 +68,9 @@ int main(void)
             case 1:
                 //先延时，再读取升级标志
                 temp = status_1();
+            
+                //temp=0x01;//test
+            
                 if(temp == 1)
                 {
                     g_MainStatus = 2;//需要升级
@@ -110,6 +113,8 @@ static uint8_t status_0(void)
         bsp_DelayMS(5000);
         if(READ_RESET_KEY == 0)//按下5s
         {
+            //改写升级标志,//启动到默认区
+            ee_WriteOneBytes(0xFF, 0);//0表示在iic的首地址
             return 1;
         }
     }
@@ -128,11 +133,15 @@ static uint8_t status_1(void)
 //复制spi数据到mcu内部flash
 static void status_2(void)
 {
-    uint8_t pageNum;
+    uint8_t pageNum=0;
+
+    //改写升级标志,//启动到app
+    ee_WriteOneBytes(0x00, 0);//0表示在iic的首地址
+    
     for(pageNum=0; pageNum<128; pageNum++)//最多256/2=128页，0--127
     {
-        sf_ReadBuffer(updateDataBuf, pageNum, IAP_PAGE_SIZE);//读spi的升级数据
-        bsp_WriteCpuFlash(APP_START_ADDR+pageNum*IAP_PAGE_SIZE, updateDataBuf, IAP_PAGE_SIZE);//把升级数据写到mcu内部flash
+        sf_ReadBuffer(updateDataBuf, pageNum*IAP_PAGE_SIZE, IAP_PAGE_SIZE);//读spi的升级数据
+        bsp_WriteCpuFlash(APP_START_ADDR+pageNum*IAP_PAGE_SIZE, updateDataBuf, IAP_PAGE_SIZE);//把升级数据写到mcu内部flash       
     }
 }
 
@@ -140,6 +149,7 @@ static void status_2(void)
 static void status_3(uint32_t address)
 {   
     JumpAddress = *(__IO uint32_t*) (address+4);// 前4字节为中断向量表
+
     /* 用户应用地址 */
     Jump_To_Application = (pFunction) JumpAddress;
     

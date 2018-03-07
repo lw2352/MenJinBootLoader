@@ -14,12 +14,10 @@
 #define _BSP_CPU_FLASH_H_
 
 #define FLASH_BASE_ADDR	0x08000000			/* Flash基地址 */
-//#define	FLASH_SIZE		(512*1024)		/* Flash 容量 */
-#define	FLASH_SIZE		(64*1024)
+#define	FLASH_SIZE		(512*1024)		/* Flash 容量 */
 
 /* 对于F103，  512K FLASH , 每个PAGE = 2K 字节，总共 256个 PAGE  */
-//#define SECTOR_MASK			0xFFFFF800
-#define SECTOR_MASK			0xFFFFF400//f100r8,64个page，每个page为1K字节
+#define SECTOR_MASK			0xFFFFF800
 
 #define FLASH_IS_EQU		0   /* Flash内容和待写入的数据相等，不需要擦除和写操作 */
 #define FLASH_REQ_WRITE		1	/* Flash不需要擦除，直接写 */
