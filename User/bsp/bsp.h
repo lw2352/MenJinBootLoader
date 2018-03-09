@@ -35,7 +35,7 @@
 /* 这个宏仅用于调试阶段排错 */
 #define BSP_Printf		printf
 //#define BSP_Printf(...)
-
+#define DEBUG 0
 #include "stm32f10x.h"
 #include <stdio.h>
 #include <string.h>

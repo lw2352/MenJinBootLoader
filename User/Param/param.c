@@ -94,13 +94,13 @@ void paramInit(void)
     
     //第二页及以后
     //8个配置开关
-    memcpy(&g_tParam.systemCfg.multipleOpenCfg[0], &temp[IS_OPEN_FIRST_CARD], 1);
-    memcpy(&g_tParam.systemCfg.multipleOpenCfg[1], &temp[IS_OPEN_SUPER_CARD], 1);
-    memcpy(&g_tParam.systemCfg.multipleOpenCfg[2], &temp[IS_OPEN_THREAT_CARD], 1);
-    memcpy(&g_tParam.systemCfg.multipleOpenCfg[3], &temp[IS_OPEN_INTERLOCK], 1);
-    memcpy(&g_tParam.systemCfg.multipleOpenCfg[4], &temp[IS_OPEN_THREAT_PASSWORD], 1);
-    memcpy(&g_tParam.systemCfg.multipleOpenCfg[5], &temp[IS_OPEN_SUPER_PASSWORD], 1);
-    memcpy(&g_tParam.systemCfg.multipleOpenCfg[6], &temp[IS_OPEN_MULTIPLE_CARD], 1);
+    memcpy(&g_tParam.systemCfg.multipleOpenCfg[0], &temp[IS_OPEN_INTERLOCK], 1);
+    memcpy(&g_tParam.systemCfg.multipleOpenCfg[1], &temp[IS_OPEN_FIRST_CARD], 1);
+    memcpy(&g_tParam.systemCfg.multipleOpenCfg[2], &temp[IS_OPEN_MULTIPLE_CARD], 1);
+    memcpy(&g_tParam.systemCfg.multipleOpenCfg[3], &temp[IS_OPEN_SUPER_CARD], 1);
+    memcpy(&g_tParam.systemCfg.multipleOpenCfg[4], &temp[IS_OPEN_SUPER_PASSWORD], 1);
+    memcpy(&g_tParam.systemCfg.multipleOpenCfg[5], &temp[IS_OPEN_THREAT_CARD], 1);
+    memcpy(&g_tParam.systemCfg.multipleOpenCfg[6], &temp[IS_OPEN_THREAT_PASSWORD], 1);
     memcpy(&g_tParam.systemCfg.multipleOpenCfg[7], &temp[IS_OPEN_FINGER], 1);
     
     //last page
@@ -132,8 +132,10 @@ void resetParam(void)
     uint16_t i;
     uint8_t buf[EE_PAGE_SIZE];
     uint8_t temp[2]; 
-    uint8_t card[3];    
-    
+    uint8_t card[3]; 
+#if DEBUG    
+    uint8_t test[300];
+#endif    
     for(i = 0; i < EE_PAGE_SIZE; i++)
 	{
 		buf[i] = 0xFF;
@@ -143,6 +145,11 @@ void resetParam(void)
     {
         ee_WriteBytes(buf, i*32, EE_PAGE_SIZE);
     }
+ #if DEBUG   
+    //test
+    bsp_DelayMS(100);
+    ee_ReadBytes(test, 0, 300);
+ #endif
     //复位结构体成员的值
     //第一页的默认参数，不用0xFF填充
     g_tParam.netCfg.local_ip[0]=192;
@@ -217,7 +224,11 @@ void resetParam(void)
     card[2]=0x45;
     memcpy(&g_tParam.multipleCardID.generalCardID[3], card, sizeof(card));
     g_tParam.updateMultipleCardID(g_tParam.multipleCardID.generalCardID, 1500, e_generalCardID);
-    
+ #if DEBUG    
+    //test
+    bsp_DelayMS(100);
+    ee_ReadBytes(test, 0, 300);
+    #endif
     //重新设置网络
     //set_default(&g_tParam.netCfg);
 }
@@ -349,20 +360,24 @@ void updateMultipleCardID(uint8_t *data, uint16_t len, enum ID_Enum type)
             ee_WriteBytes(data, MULTIPLE_CARD_ID, len);
             break;
         case e_generalCardID://len=300
+            len=len/5;
             //一次写300字节，有100个卡号，分5次写入
             for(i=0;i<5;i++)
             {
                 ee_WriteBytes(data, GENERAL_CARD_ID+i*300, len);
+                data += 300;
             }
             //test
             bsp_DelayMS(100);
             ee_ReadBytes(temp, GENERAL_CARD_ID, 300);
             break;
         case e_fingerID://len=300
+            len=len/5;
             //一次写300字节，有100个卡号，分5次写入
             for(i=0;i<5;i++)
             {
                 ee_WriteBytes(data, GENERAL_CARD_ID+i*300, len);
+                data += 300;
             }
             break;
         default:
